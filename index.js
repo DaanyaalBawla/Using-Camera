@@ -7,9 +7,6 @@ const constraints = {
 cameraButton.addEventListener("click", () =>{
     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
       video.srcObject = stream;
-      video.play();
+      streaming = true
     })
-})
-video.addEventListener("play",()=>{
-    streaming = true
 })
