@@ -28,6 +28,12 @@ function zoomFactor(track) {
       if (btn.id === 'zoom4') {
         track.applyConstraints({ advanced: [{ zoom: 4}] })
       } 
+      if (btn.id === 'zoommin') {
+        track.applyConstraints({ advanced: [{ zoom: 'min'}] })
+      } 
+      if (btn.id === 'zoommax') {
+        track.applyConstraints({ advanced: [{ zoom: 'max'}] })
+      }  
     })
     
   })
