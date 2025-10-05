@@ -22,19 +22,7 @@ cameraButton.addEventListener("click", () =>{
 function zoomFactor(track) {
   zoom.forEach(btn => {
     btn.addEventListener("click", () => {
-      if (btn.id === 'zoom2') {
-        track.applyConstraints({ advanced: [{ zoom: 2}] })
-      }
-      if (btn.id === 'zoom4') {
-        track.applyConstraints({ advanced: [{ zoom: 4}] })
-      } 
-      if (btn.id === 'zoommin') {
-        track.applyConstraints({ advanced: [{ zoom: 'min'}] })
-      } 
-      if (btn.id === 'zoommax') {
-        track.applyConstraints({ advanced: [{ zoom: 'max'}] })
-      }  
+      track.applyConstraints({ advanced: [{ zoom: btn.dataset.zoom}] }) 
     })
-    
   })
 }
