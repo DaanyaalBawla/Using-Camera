@@ -14,15 +14,22 @@ cameraButton.addEventListener("click", () =>{
       const capabilities = track.getCapabilities();
       console.log(capabilities)
       if ('zoom' in capabilities) {
-        zoomFactor(track)
+        zoomFactor(track,capabilities)
       }
       
     })
 })
-function zoomFactor(track) {
+function zoomFactor(track,capabilities) {
   zoom.forEach(btn => {
     btn.addEventListener("click", () => {
+      if (btn.dataset.zoom === 'max') {
+        track.applyConstraints({ advanced: [{ zoom: capabilities.zoom.max }] });
+      } else if (btn.dataset.zoom === 'min') {
+        track.applyConstraints({ advanced: [{ zoom: capabilities.zoom.min }] });
+      }
+      else {
       track.applyConstraints({ advanced: [{ zoom: btn.dataset.zoom}] }) 
+    }
     })
   })
 }
