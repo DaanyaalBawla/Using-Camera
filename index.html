@@ -7,10 +7,18 @@
 
     </div>
     <div class="zoom">
-        <button id="zoommin">Zoom Min</button>
-        <button id="zoom2">Zoom x2</button>
-        <button id="zoom4">Zoom x4</button>
-        <button id="zoommax">Zoom Max</button>
+        <button data-zoom="min">Zoom Min</button>
+        <button data-zoom="2">Zoom x2</button>
+        <button data-zoom="4">Zoom x4</button>
+        <button data-zoom="max">Zoom Max</button>
+    </div>
+    <div>
+        <div class="pantilt">
+            <label for="pan">Input where the camera should pan:</label>
+            <input type="text" id="pan" name="panbox"><br>
+            <label for="tilt">Input where the camera should tilt:</label>
+            <input type="text" id="tilt" name="tiltbox"><br>
+        </div>
     </div>
 </body>
 <script src="index.js"></script>
