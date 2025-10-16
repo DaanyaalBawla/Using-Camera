@@ -17,9 +17,11 @@ cameraButton.addEventListener("click", () =>{
         zoomFactor(track,capabilities)
       }
       if ('pan' in capabilities) {
-        panTilt(track,capabilities)
+        pan(track,capabilities)
       }
-      if ('tilt' in capabilities) {}
+      if ('tilt' in capabilities) {
+        tilt(track,capabilities)
+      }
       
     })
 })
@@ -37,6 +39,12 @@ function zoomFactor(track,capabilities) {
     })
   })
 }
-function panTilt(track, capabilities) {
+function pan(track, capabilities) {
+  panvalue = Number(document.querySelector('#pan').value)
+  track.applyConstraints({advanced:[{pan: panvalue}]})
 
+}
+function tilt(track,capabilities) {
+  tiltvalue = Number(document.querySelector('#tilt').value)
+  track.applyConstraints({advanced:[{tilt: tiltvalue}]})
 }
