@@ -39,12 +39,12 @@ function zoomFactor(track,capabilities) {
     })
   })
 }
-function pan(track, capabilities) {
+function pan(track) {
   panvalue = Number(document.querySelector('#pan').value)
   track.applyConstraints({advanced:[{pan: panvalue}]})
 
 }
-function tilt(track,capabilities) {
+function tilt(track) {
   tiltvalue = Number(document.querySelector('#tilt').value)
   track.applyConstraints({advanced:[{tilt: tiltvalue}]})
 }
