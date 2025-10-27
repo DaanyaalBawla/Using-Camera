@@ -25,18 +25,29 @@ cameraButton.addEventListener("click", () =>{
       
     })
 })
+/*
 function zoomFactor(track,capabilities) {
   zoom.forEach(btn => {
     btn.addEventListener("click", () => {
       if (btn.dataset.zoom === 'max') {
-        track.applyConstraints({ advanced: [{ zoom: capabilities.zoom.max }] });
+        track.applyConstraints({ advanced: [{ zoom: Number(capabilities.zoom.max) }] });
       } else if (btn.dataset.zoom === 'min') {
-        track.applyConstraints({ advanced: [{ zoom: capabilities.zoom.min }] });
+        track.applyConstraints({ advanced: [{ zoom: Number(capabilities.zoom.min) }] });
       }
       else {
       track.applyConstraints({ advanced: [{ zoom: btn.dataset.zoom}] }) 
     }
     })
+  })
+}
+*/
+function zoomFactor(track,capabilities) {
+  zoomvalue = document.querySelector('#zoom')
+  zoomvalue.min = capabilities.zoom.min
+  zoomvalue.max = capabilities.zoom.max
+  zoomvalue.step = '1'
+  zoom.addEventListener("input", () => {
+  track.applyConstraints({advanced:[{zoom: Number(document.querySelector('#zoom').value)}]})
   })
 }
 function pan(track) {
