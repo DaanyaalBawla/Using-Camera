@@ -45,17 +45,23 @@ function zoomFactor(track,capabilities) {
   zoomvalue = document.querySelector('#zoom')
   zoomvalue.min = capabilities.zoom.min
   zoomvalue.max = capabilities.zoom.max
-  zoomvalue.step = '1'
+  zoomvalue.step = capabilities.zoom.step
   zoom.addEventListener("input", () => {
   track.applyConstraints({advanced:[{zoom: Number(document.querySelector('#zoom').value)}]})
   })
 }
-function pan(track) {
+function pan(track,capabilities) {
   panvalue = Number(document.querySelector('#pan').value)
+  panvalue.min = capabilities.pan.min
+  panvalue.max = capabilities.pan.max
+  panvalue.step = capabilities.pan.step
   track.applyConstraints({advanced:[{pan: panvalue}]})
 
 }
-function tilt(track) {
+function tilt(track,capabilities) {
   tiltvalue = Number(document.querySelector('#tilt').value)
+  tiltvalue.min = capabilities.tilt.min
+  tiltvalue.max = capabilities.tilt.max
+  tiltvalue.step = capabilities.tilt.step
   track.applyConstraints({advanced:[{tilt: tiltvalue}]})
 }
