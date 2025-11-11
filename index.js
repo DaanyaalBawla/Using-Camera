@@ -11,7 +11,7 @@ cameraButton.addEventListener("click", () =>{
       video.srcObject = stream;
       streaming = true
      const track = stream.getVideoTracks()[0];
-      const capabilities = track.getCapabilities();
+     const capabilities = track.getCapabilities();
       console.log(capabilities)
       if ('zoom' in capabilities) {
         zoomFactor(track,capabilities)
@@ -22,7 +22,6 @@ cameraButton.addEventListener("click", () =>{
       if ('tilt' in capabilities) {
         tilt(track,capabilities)
       }
-      
     })
 })
 /*
@@ -51,7 +50,7 @@ function zoomFactor(track,capabilities) {
   })
 }
 function pan(track,capabilities) {
-  panvalue = Number(document.querySelector('#pan').value)
+  //panvalue = Number(document.querySelector('#pan').value)
   panvalue.min = capabilities.pan.min
   panvalue.max = capabilities.pan.max
   panvalue.step = capabilities.pan.step
@@ -59,9 +58,14 @@ function pan(track,capabilities) {
 
 }
 function tilt(track,capabilities) {
-  tiltvalue = Number(document.querySelector('#tilt').value)
+  //tiltvalue = Number(document.querySelector('#tilt').value)
   tiltvalue.min = capabilities.tilt.min
   tiltvalue.max = capabilities.tilt.max
   tiltvalue.step = capabilities.tilt.step
   track.applyConstraints({advanced:[{tilt: tiltvalue}]})
 }
+
+video.addEventListener("loading", () => {
+  console.log(video.videoWidth);
+  console.log(video.videoHeight);
+});
