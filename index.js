@@ -50,22 +50,25 @@ function zoomFactor(track,capabilities) {
   })
 }
 function pan(track,capabilities) {
-  //panvalue = Number(document.querySelector('#pan').value)
+  panvalue = document.querySelector('#pan')
   panvalue.min = capabilities.pan.min
   panvalue.max = capabilities.pan.max
   panvalue.step = capabilities.pan.step
-  track.applyConstraints({advanced:[{pan: panvalue}]})
+  track.applyConstraints({advanced:[{pan: Number(document.querySelector('#pan').value)}]})
+  centerframepan = (panvalue.min + panvalue.max)/2
 
 }
 function tilt(track,capabilities) {
-  //tiltvalue = Number(document.querySelector('#tilt').value)
+  tiltvalue = document.querySelector('#tilt')
   tiltvalue.min = capabilities.tilt.min
   tiltvalue.max = capabilities.tilt.max
   tiltvalue.step = capabilities.tilt.step
-  track.applyConstraints({advanced:[{tilt: tiltvalue}]})
+  track.applyConstraints({advanced:[{tilt: Number(document.querySelector('#tilt').value)}]})
+  centerframetilt = (tiltalue.min + tiltvalue.max)/2
+
 }
 
-video.addEventListener("loading", () => {
+video.addEventListener("loadedmetadata", () => {
   console.log(video.videoWidth);
   console.log(video.videoHeight);
 });
