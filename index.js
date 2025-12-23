@@ -1,4 +1,4 @@
-const cameraButton = document.getElementById("cambutton");
+const cameraButton = document.getElementById("cambutton"); 
 const video = document.getElementById("video");
 const zoom = document.querySelectorAll('.zoom button')
 let streaming = false;
@@ -25,6 +25,7 @@ cameraButton.addEventListener("click", () =>{
     })
 })
 /*
+Originally to test I had 2 zoom buttons
 function zoomFactor(track,capabilities) {
   zoom.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -40,6 +41,7 @@ function zoomFactor(track,capabilities) {
   })
 }
 */
+// instead of zoom buttons I have a user input for zoom, soon this should be commented out too for the click to zoom,pan,tilt
 function zoomFactor(track,capabilities) {
   zoomvalue = document.querySelector('#zoom')
   zoomvalue.min = capabilities.zoom.min
@@ -50,7 +52,7 @@ function zoomFactor(track,capabilities) {
   })
 }
 function pan(track,capabilities) {
-  panvalue = document.querySelector('#pan')
+  panvalue = document.querySelector('#video')
   panvalue.min = capabilities.pan.min
   panvalue.max = capabilities.pan.max
   panvalue.step = capabilities.pan.step
@@ -71,4 +73,11 @@ function tilt(track,capabilities) {
 video.addEventListener("loadedmetadata", () => {
   console.log(video.videoWidth);
   console.log(video.videoHeight);
+});
+// tracks mouse movement on the video box
+video.addEventListener('click', function(event) {
+    const tracking = {x: event.offsetX, y: event.offsetY};
+    newPan = ((panvalue.max-panvalue.min)/video.getBoundingClientRect().width)*tracking.x + panvalue.min
+  //incomplete there for concept. need to change panvalue probably will combine tilt and pan into 1 function then add this event listener
+
 });
