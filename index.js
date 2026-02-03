@@ -1,6 +1,7 @@
 const cameraButton = document.getElementById("cambutton"); 
 const video = document.getElementById("video");
-const zoom = document.querySelectorAll('.zoom button')
+const zoom = document.querySelectorAll('.zoom button');
+const reset = document.getElementById("resetbutton");
 let streaming = false;
 const constraints = {
     video: {facingMode: { exact: "environment" },}
@@ -13,16 +14,46 @@ cameraButton.addEventListener("click", () =>{
      const track = stream.getVideoTracks()[0];
      const capabilities = track.getCapabilities();
       console.log(capabilities)
-      if ('zoom' in capabilities) {
-        zoomFactor(track,capabilities)
+      if ('zoom', 'pan', 'tilt' in capabilities) {
+        camSettings(track,capabilities)
       }
+      /*
       if ('pan' in capabilities) {
         pan(track,capabilities)
       }
       if ('tilt' in capabilities) {
         tilt(track,capabilities)
       }
+        */
     })
+})
+function camSettings(track,capabilities) {
+  zoomvalue = document.querySelector('#video')
+  zoomvalue.min = capabilities.zoom.min
+  zoomvalue.max = capabilities.zoom.max
+  zoomvalue.step = capabilities.zoom.step
+  track.applyConstraints({ advanced: [{ zoom: Number(capabilities.zoom.max) }]})
+
+  panvalue = document.querySelector('#video')
+  panvalue.min = capabilities.pan.min
+  panvalue.max = capabilities.pan.max
+  panvalue.step = capabilities.pan.step
+  track.applyConstraints({advanced:[{pan: Number(panvalue.value)}]})
+
+  centerframepan = (panvalue.min + panvalue.max)/2
+  tiltvalue = document.querySelector('#video')
+  tiltvalue.min = capabilities.tilt.min
+  tiltvalue.max = capabilities.tilt.max
+  tiltvalue.step = capabilities.tilt.step
+  track.applyConstraints({advanced:[{tilt: Number(tiltvalue.value)}]})
+
+  centerframetilt = (tiltvalue.min + tiltvalue.max)/2
+
+}
+reset.addEventListener("click", () => {
+  track.applyConstraints({ advanced: [{ zoom: Number(capabilities.zoom.min) }] });
+  track.applyConstraints({ advanced: [{ pan: Number(capabilities.pan.min) }] });
+  track.applyConstraints({ advanced: [{ tilt: Number(capabilities.tilt.min) }] });
 })
 /*
 Originally to test I had 2 zoom buttons
@@ -42,6 +73,7 @@ function zoomFactor(track,capabilities) {
 }
 */
 // instead of zoom buttons I have a user input for zoom, soon this should be commented out too for the click to zoom,pan,tilt
+/*
 function zoomFactor(track,capabilities) {
   zoomvalue = document.querySelector('#zoom')
   zoomvalue.min = capabilities.zoom.min
@@ -69,7 +101,7 @@ function tilt(track,capabilities) {
   centerframetilt = (tiltvalue.min + tiltvalue.max)/2
 
 }
-
+*/
 video.addEventListener("loadedmetadata", () => {
   console.log(video.videoWidth);
   console.log(video.videoHeight);
