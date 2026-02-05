@@ -54,7 +54,20 @@ reset.addEventListener("click", () => {
   track.applyConstraints({ advanced: [{ zoom: Number(capabilities.zoom.min) }] });
   track.applyConstraints({ advanced: [{ pan: Number(capabilities.pan.min) }] });
   track.applyConstraints({ advanced: [{ tilt: Number(capabilities.tilt.min) }] });
-})
+});
+
+video.addEventListener("loadedmetadata", () => {
+  console.log(video.videoWidth);
+  console.log(video.videoHeight);
+});
+// tracks mouse movement on the video box
+video.addEventListener('click', function(event) {
+    const tracking = {x: event.offsetX, y: event.offsetY};
+    newPan = ((panvalue.max-panvalue.min)/video.getBoundingClientRect().width)*tracking.x + panvalue.min
+  //incomplete there for concept. need to change panvalue probably will combine tilt and pan into 1 function then add this event listener
+
+});
+
 /*
 Originally to test I had 2 zoom buttons
 function zoomFactor(track,capabilities) {
@@ -102,14 +115,3 @@ function tilt(track,capabilities) {
 
 }
 */
-video.addEventListener("loadedmetadata", () => {
-  console.log(video.videoWidth);
-  console.log(video.videoHeight);
-});
-// tracks mouse movement on the video box
-video.addEventListener('click', function(event) {
-    const tracking = {x: event.offsetX, y: event.offsetY};
-    newPan = ((panvalue.max-panvalue.min)/video.getBoundingClientRect().width)*tracking.x + panvalue.min
-  //incomplete there for concept. need to change panvalue probably will combine tilt and pan into 1 function then add this event listener
-
-});
