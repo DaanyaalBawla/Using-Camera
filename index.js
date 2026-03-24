@@ -5,19 +5,23 @@ const zoom = document.querySelectorAll('.zoom button');
 
 let streaming = false;
 const constraints = {
-    video: {facingMode: { exact: "environment" },}
+    video: {facingMode: { facingMode: "environment" },}
 
 }
 cameraButton.addEventListener("click", () =>{
+  cameraButton.classList.add("hidden")
     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
       video.srcObject = stream;
       streaming = true
-     const track = stream.getVideoTracks()[0];
-     const capabilities = track.getCapabilities();
+      const track = stream.getVideoTracks()[0];
+      const capabilities = track.getCapabilities();
       console.log(capabilities)
       if ('zoom'in capabilities && 'pan' in capabilities && 'tilt' in capabilities) {
         camSettings(track,capabilities)
       }
+      else{
+    alert("This camera does not support zoom pan or tilt.");
+  }
     })
 })
 function camSettings(track,capabilities) {
