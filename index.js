@@ -5,7 +5,11 @@ const zoom = document.querySelectorAll('.zoom button');
 
 let streaming = false;
 const constraints = {
-    video: {facingMode: { facingMode: "environment" },}
+    video: {
+      facingMode: "environment",
+      width: { ideal: 9999 },
+      height: { ideal: 9999 } 
+    }
 
 }
 cameraButton.addEventListener("click", () =>{
@@ -16,7 +20,7 @@ cameraButton.addEventListener("click", () =>{
       const track = stream.getVideoTracks()[0];
       const capabilities = track.getCapabilities();
       console.log(capabilities)
-      if ('zoom'in capabilities && 'pan' in capabilities && 'tilt' in capabilities) {
+      if ('zoom'in capabilities) {
         camSettings(track,capabilities)
       }
       else{
@@ -30,26 +34,17 @@ function camSettings(track,capabilities) {
   zoommax: capabilities.zoom.max,
   zoomstep: capabilities.zoom.step
   };
-  let pan = {
-  panmin: capabilities.pan.min,
-  panmax: capabilities.pan.max,
-  panstep: capabilities.pan.step
-  }
-  let tilt = {
-  tiltmin: capabilities.tilt.min,
-  tiltmax: capabilities.tilt.max,
-  tiltstep: capabilities.tilt.step
-  }
-  
-  return {zoom,pan,tilt}
-  centerframepan = (panmin + panmax)/2
-  centerframetilt = (tiltmin + tiltmax)/2
-
+  return zoom
 }
-
+// I learned that most phones don't have pan or tilt so I am resturucing my approach. Zoom will be my only need.
 video.addEventListener("loadedmetadata", () => {
-  console.log(video.videoWidth);
-  console.log(video.videoHeight);
+  const vWidth = video.videoWidth;
+  const vHeight = video.videoHeight; 
+  console.log("Ramera Resolution:", vWidth, "x", vHeight);
+  screenWidth = vWidth/4
+  screenHeight = vHeight/4
+  video.style.width = screenWidth + 'px';
+  video.style.height = screenHeight + 'px';
 });
 // tracks mouse movement on the video box
 video.addEventListener('click', function(event) {
