@@ -24,7 +24,7 @@ cameraButton.addEventListener("click", () =>{
         camSettings(track,capabilities)
       }
       else{
-    alert("This camera does not support zoom pan or tilt.");
+    alert("This camera does not support zoom.");
   }
     })
 })
@@ -40,19 +40,20 @@ function camSettings(track,capabilities) {
 video.addEventListener("loadedmetadata", () => {
   const vWidth = video.videoWidth;
   const vHeight = video.videoHeight; 
-  console.log("Ramera Resolution:", vWidth, "x", vHeight);
+  console.log("Camera Resolution:", vWidth, "x", vHeight);
   screenWidth = vWidth/4
   screenHeight = vHeight/4
   video.style.width = screenWidth + 'px';
   video.style.height = screenHeight + 'px';
 });
-// tracks mouse movement on the video box
-video.addEventListener('click', function(event) {
-    const tracking = {x: event.offsetX, y: event.offsetY};
-    newPan = ((panvalue.max-panvalue.min)/video.getBoundingClientRect().width)*tracking.x + panvalue.min
-  //incomplete there for concept. need to change panvalue probably will combine tilt and pan into 1 function then add this event listener
+// offset gives the mouse position relative to the top left corner of the video box.
+video.addEventListener('click', () => {
+  const tracking = {x: event.offsetX, y: event.offsetY};
+  
+
 
 });
+
 
 /*
 Originally to test I had 2 zoom buttons
